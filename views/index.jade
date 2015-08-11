@@ -2,5 +2,10 @@ extends layout
 extends nav
 
 block content
-  h1 hey
-  p Welcome to  
+	- each product in products
+		div(class="product" id=product._id)
+			a(href="product/"+product._id)
+				img(class="picture" src="uploads/"+product.Picture)  
+				h3= product.Name
+				p= product.Price 
+					span €

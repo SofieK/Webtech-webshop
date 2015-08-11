@@ -1,0 +1,24 @@
+extends layout
+extends nav
+
+block content
+	a.back(href="javascript:history.back()") Back
+
+	img(src="/uploads/#{product.Picture}")
+	h1 #{product.Name}
+	p €
+		span #{product.Price}
+	p #{product.Description}
+
+	#order
+		if user
+			form(action="/cart", method="post", enctype="multipart/form-data")
+				label(for='amount') Amount
+				input(type="number", id='amount', name="amount", required, min="0")
+				input(type="hidden", id='product_id', name="product_id", value="#{product._id}")
+
+				button(type="submit" id="addcart") Add to cart
+
+		else 
+			a(href="/login") Login to order this product
+

@@ -9,5 +9,6 @@ module.exports = mongoose.model('User',{
 	housenr: Number,
 	city: String,
 	country: String,
-	admin: {type: Boolean, default: 0}
+	admin: {type: Boolean, default: 0},
+	cart: {type: Array, default: []}
 });

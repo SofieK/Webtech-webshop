@@ -1,0 +1,9 @@
+extends layout
+extends nav
+
+block content
+	if user
+		- each product in cart
+			div(class="heart")
+				p #{product.Name}
+				//- p #{product.amount}

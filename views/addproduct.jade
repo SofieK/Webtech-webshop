@@ -3,6 +3,16 @@ extends nav
 
 block content
     form(action="/upload", method="post", enctype="multipart/form-data")
-        input(type="text", name="title")
-        input(type="file", multiple, name="image")
-        button(type="submit", value="Upload") Upload File
+        label(for='title') Title
+        input(type="text", id='title', name="title", placeholder="Title", required)
+
+        label(for='description') Description
+        textarea(rows="4", cols="50", id='description', name="description", placeholder="Description", required)
+
+        label(for='price') Price
+        input(type="number", id='price', name="price", placeholder="Price", required)
+        
+        label(for='image') Image
+        input(type="file", id='image', name="image")
+
+        button(type="submit", value="Upload") Add product
