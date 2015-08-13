@@ -3,7 +3,22 @@ extends nav
 
 block content
 	if user
-		- each product in cart
+		- var p = cart
+		- var a = amount
+		- var total = 0
+		- for (var i = 0; i< p.length; i++)
+			- var tot = p[i].Price * a[i]
+			- total = total +tot
 			div(class="heart")
-				p #{product.Name}
+				p= p[i].Name
+				p="€ "+ p[i].Price
+				p= a[i]
+				p=" SOM = € "+  tot
+			
+		span=" TOTAL = € "+ total
+
+		form(action="/order", method="post")
+			input(type="hidden" name="total" value=total)
+			button(type="submit" id="addcart") Place order!
+
 				//- p #{product.amount}
