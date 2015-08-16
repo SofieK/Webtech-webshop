@@ -35,8 +35,17 @@ io.on('connection', function(socket){
         console.log('created'+ b);
         io.emit('updateOrder', b);
       });
+    });
+
+    socket.on('changeStatus', function(id) {
+
+      Order.findByIdAndUpdate(id, {'status': 'Shipped'}, function(err, b){
+        console.log(b);
+        socket.emit('updateStatus', b);
+      });
 
    });
+
 });
 // io.on('connect', function(socket) {
 

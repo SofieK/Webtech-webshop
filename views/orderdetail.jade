@@ -16,5 +16,32 @@ block content
 					h2= order.Name
 				td
 					p= order.Price
-				td 
-					p= orderdetail.status
+
+	p= orderdetail.total
+	p.status= orderdetail.status
+
+	if user.admin 
+		if orderdetail.status != "Shipped"
+			button(type="submit" id="changeStatus") Shipped!
+		
+
+
+	script.
+		$(document).ready(function(){
+
+			var socket = io.connect('http://localhost:3000');
+
+				var orderId = "#{orderdetail._id}";
+				
+
+				$('#changeStatus').on('click', function(){
+					socket.emit('changeStatus', orderId);
+					$(this).attr('disabled','disabled');	
+				});
+
+				socket.on('updateStatus', function(res){
+
+				$('.status').text('Shipped');
+
+			});
+		});

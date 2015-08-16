@@ -5,5 +5,5 @@ module.exports = mongoose.model('Order',{
 	user: String,
 	order: Array,
 	total: Number,
-	status: {type: String, default: "Pending"}
+	status: {type: String, default: "Awaiting shipment"}
 });
