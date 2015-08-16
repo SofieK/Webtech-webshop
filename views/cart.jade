@@ -18,7 +18,26 @@ block content
 		span=" TOTAL = € "+ total
 
 		form(action="/order", method="post")
-			input(type="hidden" name="total" value=total)
-			button(type="submit" id="addcart") Place order!
+			input(type="hidden" name="total" id="total" value=total)
+			button(type="submit" id="OrderCart") Place order!
 
-				//- p #{product.amount}
+	script.
+		$(document).ready(function(){
+
+			var socket = io.connect('http://localhost:3000');
+
+			if("#{user._id}"){
+				var userId = "#{user._id}";
+				var cart = !{JSON.stringify(user.cart)}
+				console.log(cart);
+				var totalPrice = $('#total').val();
+				var new_order = {'user': userId, 'order': cart, 'total': totalPrice};
+				console.log(new_order);
+
+				$('#OrderCart').on('click', function(){
+					socket.emit('NewOrder', new_order);
+				});
+			}
+
+
+		});

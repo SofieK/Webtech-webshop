@@ -3,4 +3,31 @@ extends nav
 
 block content
 	if user
-		p kwak
+		if order != ""
+			table
+				tr
+					th Order nr.
+					th Total 
+					th Status
+					th Info
+				-each order in orders
+					tr
+						td= order._id
+						td= order.total
+						td= order.status
+						td
+							a(href="/order/"+order._id) More info
+		else
+			p You have not made any orders yet
+
+	script.
+		$(document).ready(function(){
+
+		var socket = io.connect('http://localhost:3000');
+
+
+			socket.on('updateOrder', function(order){
+				$('table').append('<tr><td>'+ order._id+'</td><td>'+ order.total+'</td><td>'+ order.status+'</td><td><a href="/order/'+ order._id +'">More info</a></td></tr>')
+
+			});
+		});

@@ -1,0 +1,16 @@
+extends layout
+extends nav
+
+block content
+	h1 ORDER nr= #{orderdetail._id}
+	table
+		- each order in order
+			tr
+				td 
+					img()
+				td 
+					h2 titel
+				td
+					p prijs
+				td 
+					p status

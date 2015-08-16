@@ -4,8 +4,6 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var multer  = require('multer');
-var done = false;
 
 var app = express();
 
@@ -46,38 +44,6 @@ initPassport(passport);
 
 var routes = require('./routes/index')(passport);
 app.use('/', routes);
-
-
-
-// MULTER
-
-
-
-/*Configure the multer.*/
-
-// app.use(multer({ dest: './public/uploads/',
-//  rename: function (fieldname, filename) {
-//     return filename+Date.now();
-//   },
-// onFileUploadStart: function (file) {
-//   console.log(file.originalname + ' is starting ...')
-// },
-// onFileUploadComplete: function (file) {
-//   console.log(file.fieldname + ' uploaded to  ' + file.path)
-//   done=true;
-// }
-// }).single('image'));
-
-// /*Handling routes.*/
-
-// app.post('/upload',function(req,res){
-//   if(done==true){
-//     console.log(req.files);
-//     res.end("File uploaded.");
-//   }
-// });
-
-
 
 
 

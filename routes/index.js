@@ -128,12 +128,13 @@ router.post('/cart', function(req, res){
 
 	User.findByIdAndUpdate(cart_user, {$push: {"cart": cart_product}}, {safe: true, upsert: true}, function(err, b){
 				//console.log('updated:' + b);
-				var added = true;
-				res.render('cart', added)
+				//var added = true;
+				res.redirect('cart')
 			})
 });
 
 router.get('/cart', function(req, res){
+	
 	if (req.user){
 		var cart_array = req.user.cart;
 		var cart_length = cart_array.length;
@@ -171,22 +172,61 @@ router.get('/cart', function(req, res){
 });
 
 
-router.post('/order', function(req, res){
-	var new_order = {user: req.user._id, order: req.user.cart, total: req.body.total};
-	console.log(new_order);
-	Order.create(new_order, function(err, b){
-		console.log('created'+ b)
-	});
+router.post('/order', isAuthenticated, function(req, res){
+	
 	User.findByIdAndUpdate(req.user._id, {"cart" : []}, function(err, b){
 		console.log('update'+b);
 	});
-	res.render('orders', { user: req.user })
+	res.redirect('order')
 
 });
 
-router.get('/order', function(req, res){
-	res.render('orders', { user: req.user });
+router.get('/order', isAuthenticated, function(req, res){
+
+	if(req.user.admin == 1){
+		Order.find(function(err, b) {
+		  console.log(b);
+		  res.render('orders', { user: req.user, orders: b });
+		})
+	} else if(req.user.admin == 0){
+		Order.find({user: req.user._id}, function(err, b) {
+		  console.log(b);
+		  res.render('orders', { user: req.user, orders: b });
+		})
+	}
+
+	
 });
+
+
+router.get('/order/:key', isAuthenticated, function(req, res){
+		//console.log(req.params.key);
+		var order_id = req.params.key;
+
+		Order.findById( order_id, function(err, b){
+			var orderdetail = b;
+			var order = b.order;
+			var items = [];
+			var order_length = order.length;
+			var ii = 0; 
+			for (var i = 0; i < order.length; i++) {
+				Product.findById(order[i]._id, function(err, d){
+					items.push(d);
+
+					ii++;
+
+					if(ii == order_length){
+						//console.log(array_id);
+						var order_data = {"order": items, "orderdetail": orderdetail, "user" : req.user};
+						console.log('order_data ='+items);
+						res.render('orderdetail', order_data );
+					}
+				})
+			};
+			
+		})
+
+	});
 
 
 return router;

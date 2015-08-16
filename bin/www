@@ -21,6 +21,34 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
+
+var io = require('socket.io')(server);
+var Order = require('./../models/order');
+
+io.on('connection', function(socket){
+
+    console.log('user connected');
+
+    socket.on('NewOrder', function(data) {
+
+      Order.create(data, function(err, b){
+        console.log('created'+ b);
+        io.emit('updateOrder', b);
+      });
+
+   });
+});
+// io.on('connect', function(socket) {
+
+//     Order.find()
+//       .exec(function(err, b) {
+//         socket.emit('showOrders', b);
+//         console.log(b);
+//       });
+
+// });
+
+
 /**
  * Listen on provided port, on all network interfaces.
  */

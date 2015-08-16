@@ -2,4 +2,7 @@ extends layout
 extends nav
 
 block content
-	a(href="/addproduct") Add products
+	if user.admin == 1
+		a(href="/addproduct") Add products
+
+		
