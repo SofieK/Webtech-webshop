@@ -210,15 +210,14 @@ router.get('/order/:key', isAuthenticated, function(req, res){
 			var order_length = order.length;
 			var ii = 0; 
 			for (var i = 0; i < order.length; i++) {
-				Product.findById(order[i]._id, function(err, d){
+				Product.findById(order[i].product_id, function(err, d){
 					items.push(d);
-
 					ii++;
 
 					if(ii == order_length){
 						//console.log(array_id);
-						var order_data = {"order": items, "orderdetail": orderdetail, "user" : req.user};
-						console.log('order_data ='+items);
+						var order_data = {orders: items, orderdetail: orderdetail, user : req.user};
+						console.log('order_data ='+order_data.orderdetail);
 						res.render('orderdetail', order_data );
 					}
 				})

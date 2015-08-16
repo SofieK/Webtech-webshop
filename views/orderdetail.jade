@@ -4,13 +4,17 @@ extends nav
 block content
 	h1 ORDER nr= #{orderdetail._id}
 	table
-		- each order in order
+		- var i = 0;
+		- each order in orders
 			tr
 				td 
-					img()
+					img(src="/uploads/"+order.Picture)
 				td 
-					h2 titel
+					p= orderdetail.order[i].amount
+					- i++;
+				td 
+					h2= order.Name
 				td
-					p prijs
+					p= order.Price
 				td 
-					p status
+					p= orderdetail.status
