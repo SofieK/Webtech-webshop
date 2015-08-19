@@ -5,6 +5,7 @@ block content
 	if user
 		- var p = cart
 		- var a = amount
+		- var s = size
 		- var total = 0
 		- for (var i = 0; i< p.length; i++)
 			- var tot = p[i].Price * a[i]
@@ -13,6 +14,7 @@ block content
 				p= p[i].Name
 				p="€ "+ p[i].Price
 				p= a[i]
+				p= s[i]
 				p=" SOM = € "+  tot
 			
 		span=" TOTAL = € "+ total
@@ -26,7 +28,6 @@ block content
 
 			var socket = io.connect('http://localhost:3000');
 
-			if("#{user._id}"){
 				var userId = "#{user._id}";
 				var cart = !{JSON.stringify(user.cart)}
 				console.log(cart);
@@ -37,7 +38,7 @@ block content
 				$('#OrderCart').on('click', function(){
 					socket.emit('NewOrder', new_order);
 				});
-			}
+
 
 
 		});

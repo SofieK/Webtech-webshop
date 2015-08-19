@@ -15,6 +15,18 @@ block content
 			form(action="/cart", method="post")
 				label(for='amount') Amount
 				input(type="number", id='amount', name="amount", required, min="0")
+
+				select(name='size', id="size")
+					if product.Option == "One"
+						option(value='One') One Size
+					else 
+						- var p = product.Option
+						- for (var i = 0; i< p.length; i++)
+							if p[i] != ","
+								option(value=p[i]) 
+									p= p[i]
+
+
 				input(type="hidden", id='product_id', name="product_id", value="#{product._id}")
 
 				button(type="submit" id="addcart") Add to cart

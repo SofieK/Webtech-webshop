@@ -101,7 +101,7 @@ router.post('/upload', upload, function(req, res){
 	if(!size){
 		var option = "One";
 	} else{
-		option = size;
+		option = "["+size+"]";
 	}
 	
 	var new_product_data = {Name : req.body.title, Type: req.body.type, Option: option, Price : req.body.price, Picture : req.file.filename, Description :  req.body.description};
@@ -131,8 +131,8 @@ router.get('/product/:key', function(req, res){
 router.post('/cart', function(req, res){
 	var cart_user = req.user._id;
 
-	var cart_product = {"product_id": req.body.product_id, "amount": req.body.amount};
-	console.log(req.body);
+	var cart_product = {"product_id": req.body.product_id, "Option": req.body.size, "amount": req.body.amount};
+	console.log(cart_product);
 
 	User.findByIdAndUpdate(cart_user, {$push: {"cart": cart_product}}, {safe: true, upsert: true}, function(err, b){
 				//console.log('updated:' + b);
@@ -147,11 +147,13 @@ router.get('/cart', function(req, res){
 		var cart_array = req.user.cart;
 		var cart_length = cart_array.length;
 		var array_id = [];
+		var array_size = [];
 		var cart = [];
 		var ii=0;
 		for(var i=0; i<cart_length; i++){
 
 			array_id[i] = cart_array[i].amount;
+			array_size[i] = cart_array[i].Option;
 
 			Product.findById(cart_array[i].product_id, function(err, result){
 				cart.push(result);
@@ -161,7 +163,7 @@ router.get('/cart', function(req, res){
 
 				if(ii == cart_length){
 					//console.log(array_id);
-					var cartdata = { "cart": cart, "amount": array_id, user : req.user};
+					var cartdata = { "cart": cart, "amount": array_id, "size": array_size, user : req.user};
 					//console.log('CARTDATA ='+cartdata);
 					res.render('cart', cartdata );
 				}
