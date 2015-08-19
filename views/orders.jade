@@ -8,13 +8,13 @@ block content
 				tr
 					th Order nr.
 					th Total 
-					th Status
+					th.statusbtn Status
 					th Info
 				-each order in orders
-					tr
+					tr.rows
 						td= order._id
 						td= order.total
-						td= order.status
+						td.status= order.status
 						td
 							a(href="/order/"+order._id) More info
 		else
@@ -25,9 +25,24 @@ block content
 
 		var socket = io.connect('http://localhost:3000');
 
-
 			socket.on('updateOrder', function(order){
 				$('table').append('<tr><td>'+ order._id+'</td><td>'+ order.total+'</td><td>'+ order.status+'</td><td><a href="/order/'+ order._id +'">More info</a></td></tr>')
 
 			});
+
+
+			$('.statusbtn').click(function(){
+			    var table = $(this).parents('table').eq(0)
+			    var rows = table.find('tr:gt(0)').toArray().sort(comparer($(this).index()))
+			    this.asc = !this.asc
+			    if (!this.asc){rows = rows.reverse()}
+			    for (var i = 0; i < rows.length; i++){table.append(rows[i])}
+			})
+			function comparer(index) {
+			    return function(a, b) {
+			        var valA = getCellValue(a, index), valB = getCellValue(b, index)
+			        return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.localeCompare(valB)
+			    }
+			}
+			function getCellValue(row, index){ return $(row).children('td').eq(index).html() }
 		});

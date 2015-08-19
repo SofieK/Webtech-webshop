@@ -11,8 +11,41 @@ block content
 
         label(for='price') Price
         input(type="number", id='price', name="price", placeholder="Price", required)
+
+        select(name='type', id="type")
+            option(value='T-shirt') T-shirt
+            option(value='Sweater') Sweater
+            option(value='Headwear') Headwear
+            option(value='Accesories') Accesories
+            
+        div#inputs
+            input(type='checkbox', name='Size', value="S")
+            | Small
+            input(type='checkbox', name='Size', value="M")
+            | Medium
+            input(type='checkbox', name='Size', value="L")
+            | Large
         
         label(for='image') Image
         input(type="file", id='image', name="image")
 
         button(type="submit", value="Upload") Add product
+
+
+    script.
+        $(document).ready(function(){
+             $('select').change(function(){
+
+                var type = $("select option:selected").val();
+                console.log(type);
+                if(type == "T-shirt" || type == "Sweater"){
+                    console.log(type);
+                  $('#inputs').show();
+                }else{
+                    $('#inputs').hide();
+                }
+                
+                
+            });
+
+            });

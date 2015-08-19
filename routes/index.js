@@ -96,7 +96,10 @@ router.get('/addproduct', isAuthenticated, function(req, res){
 });
 
 router.post('/upload', upload, function(req, res){
-	var new_product_data = {Name : req.body.title, Price : req.body.price, Picture : req.file.filename, Description :  req.body.description};
+	console.log(req.body);
+	console.log("size = "+req.body.size);
+	var option = "One";
+	var new_product_data = {Name : req.body.title, Type: req.body.type, Option: option, Price : req.body.price, Picture : req.file.filename, Description :  req.body.description};
 	Product.create(new_product_data, function(err, b){});
 	res.redirect('/');
 });
@@ -175,7 +178,7 @@ router.get('/cart', function(req, res){
 router.post('/order', isAuthenticated, function(req, res){
 	
 	User.findByIdAndUpdate(req.user._id, {"cart" : []}, function(err, b){
-		console.log('update'+b);
+		//console.log('update'+b);
 	});
 	res.redirect('order')
 
@@ -185,12 +188,12 @@ router.get('/order', isAuthenticated, function(req, res){
 
 	if(req.user.admin == 1){
 		Order.find(function(err, b) {
-		  console.log(b);
+		 // console.log(b);
 		  res.render('orders', { user: req.user, orders: b });
 		})
 	} else if(req.user.admin == 0){
 		Order.find({user: req.user._id}, function(err, b) {
-		  console.log(b);
+		  //console.log(b);
 		  res.render('orders', { user: req.user, orders: b });
 		})
 	}
@@ -217,7 +220,7 @@ router.get('/order/:key', isAuthenticated, function(req, res){
 					if(ii == order_length){
 						//console.log(array_id);
 						var order_data = {orders: items, orderdetail: orderdetail, user : req.user};
-						console.log('order_data ='+order_data.orderdetail);
+						//console.log('order_data ='+order_data.orderdetail);
 						res.render('orderdetail', order_data );
 					}
 				})
