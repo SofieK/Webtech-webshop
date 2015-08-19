@@ -2,10 +2,38 @@ extends layout
 extends nav
 
 block content
+	div#productsblock
 	- each product in products
-		div(class="product" id=product._id)
+		div(class=product.Type+" product" id=product._id)
 			a(href="product/"+product._id)
 				img(class="picture" src="uploads/"+product.Picture)  
 				h3= product.Name
 				p= product.Price 
 					span €
+
+	div#filterblock
+		label(name='type') Show
+		select(name='type', id="type")
+			option(value='all') All
+			option(value='T-shirt') T-shirt
+			option(value='Sweater') Sweater
+			option(value='Headwear') Headwear
+			option(value='Accesories') Accesories
+
+	script.
+		$(document).ready(function(){
+			$('select').change(function(){
+
+				var type = $("select option:selected").val();
+				console.log(type);
+
+				if(type != 'all'){
+					$('.product').hide();
+					$('.'+type).show();
+				}else{
+					$('.product').show();
+				};
+
+
+			});
+		});

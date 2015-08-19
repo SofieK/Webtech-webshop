@@ -97,8 +97,13 @@ router.get('/addproduct', isAuthenticated, function(req, res){
 
 router.post('/upload', upload, function(req, res){
 	console.log(req.body);
-	console.log("size = "+req.body.size);
-	var option = "One";
+	var size = req.body.size;
+	if(!size){
+		var option = "One";
+	} else{
+		option = size;
+	}
+	
 	var new_product_data = {Name : req.body.title, Type: req.body.type, Option: option, Price : req.body.price, Picture : req.file.filename, Description :  req.body.description};
 	Product.create(new_product_data, function(err, b){});
 	res.redirect('/');
