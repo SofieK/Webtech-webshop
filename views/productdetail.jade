@@ -2,35 +2,42 @@ extends layout
 extends nav
 
 block content
-	a.back(href="javascript:history.back()") Back
+	div#container
+		div#containerinside
+			a.back(href="javascript:history.back()") < Back
+			div#clearfix
+			div#left
+				img(src="/uploads/#{product.Picture}")
+			div#right
+				h1 #{product.Name}
+				p €
+					span #{product.Price}
+				p #{product.Description}
 
-	img(src="/uploads/#{product.Picture}")
-	h1 #{product.Name}
-	p €
-		span #{product.Price}
-	p #{product.Description}
+			
+			#order
+				if user
+					form(action="/cart", method="post")
+						
+						label(for='size') Size
+						select(name='size', id="size")
+							if product.Option == "One"
+								option(value='One') One Size
+							else 
+								- var p = product.Option
+								- for (var i = 0; i< p.length; i++)
+									if p[i] != ","
+										option(value=p[i]) 
+											p= p[i]	
 
-	#order
-		if user
-			form(action="/cart", method="post")
-				label(for='amount') Amount
-				input(type="number", id='amount', name="amount", required, min="0")
+						label(for='amount') Amount
+						input(type="number", id='amount', name="amount", required, min="1", value="1")
 
-				select(name='size', id="size")
-					if product.Option == "One"
-						option(value='One') One Size
-					else 
-						- var p = product.Option
-						- for (var i = 0; i< p.length; i++)
-							if p[i] != ","
-								option(value=p[i]) 
-									p= p[i]
+						input(type="hidden", id='product_id', name="product_id", value="#{product._id}")
 
+						button(type="submit" id="addcart") Add to cart
 
-				input(type="hidden", id='product_id', name="product_id", value="#{product._id}")
+				else 
+					a(href="/login") Login to order this product
 
-				button(type="submit" id="addcart") Add to cart
-
-		else 
-			a(href="/login") Login to order this product
-
+			div#clearfix

@@ -91,6 +91,8 @@ nav a:active{
 
 /*   ===== CONTAINERS =====   */
 
+
+
 #container{
 	width: 100%;
 }
@@ -106,6 +108,11 @@ nav a:active{
 	height: 100%;
 }
 
+
+
+
+
+/*   ===== INDEX =====   */
 #productsblock{
 	width: 80%;
 	float:left;
@@ -146,4 +153,63 @@ nav a:active{
 
 p.title{
 	font-weight: bold;
+}
+
+
+/*   ===== PRODUCTDETAIL =====   */
+
+
+.back:link,
+.back:visited,
+.back:hover,
+.back:active{
+	color: #000;
+	text-decoration: none;
+}
+
+.back:hover{
+	font-weight: bold;
+}
+
+#left, #right{
+	float: left;
+	width: 50%; 
+}
+
+#order a:link,
+#order a:visited,
+#order a:hover,
+#order a:active{
+	color: #000;
+	font-size: 15px;
+	font-weight: bold;
+	text-decoration: none;
+}
+#order a:hover{
+	text-decoration: underline;
+}
+
+#right{
+	margin-bottom: 100px;
+}
+
+label{
+	font-size: 15px;
+}
+
+#size{
+	width: 457px;
+	display: block;
+	padding: 5px;
+	margin-bottom: 20px;
+}
+
+#amount{
+	margin: 0 10px;
+	padding: 5px;
+}
+
+button{
+	padding: 0 15px;
+	height: 35px;
 }
