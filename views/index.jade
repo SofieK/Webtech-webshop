@@ -2,23 +2,27 @@ extends layout
 extends nav
 
 block content
-	div#productsblock
-	- each product in products
-		div(class=product.Type+" product" id=product._id)
-			a(href="product/"+product._id)
-				img(class="picture" src="uploads/"+product.Picture)  
-				h3= product.Name
-				p= product.Price 
-					span €
+	div#container
+		div#containerinside
+			div#productsblock
+				- products = products.reverse()
+				- each product in products
+					div(class=product.Type+" product" id=product._id)
+						a(href="product/"+product._id)
+							img(class="picture" src="uploads/"+product.Picture)  
+							p.title= product.Name
+							p="€"+ product.Price 
 
-	div#filterblock
-		label(name='type') Show
-		select(name='type', id="type")
-			option(value='all') All
-			option(value='T-shirt') T-shirt
-			option(value='Sweater') Sweater
-			option(value='Headwear') Headwear
-			option(value='Accesories') Accesories
+			div#filterblock
+				label(name='type') Show  
+				select(name='type', id="type")
+					option(value='all') All
+					option(value='T-shirt') T-shirt
+					option(value='Sweater') Sweater
+					option(value='Headwear') Headwear
+					option(value='Accesories') Accesories
+
+			div#clearfix
 
 	script.
 		$(document).ready(function(){

@@ -1,8 +1,149 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: 'Oswald', sans-serif;
+  font-size: 14px;
+  background-color: #e6e6e6;
 }
 
-a {
-  color: #00B7FF;
+#clearfix {
+	clear: both;
+}
+
+/*	===== NAV =====   */
+
+#navcontainer{
+	background-color: #000;
+	height: 85px;
+	padding: 5px
+}
+nav{
+	width: 960px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+nav a:link,
+nav a:visited,
+nav a:hover,
+nav a:active{
+	color: #fff;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+
+#logo{
+	float: left;
+	font-size: 33px;
+}
+#nav{
+	float:right;
+}
+#nav ul{
+	list-style:none;
+	margin-top: 30px;
+	margin-right: 10px;
+}
+
+#nav li{
+	float: left;
+}
+
+.account{
+	margin:10px;
+}
+
+.account a:hover{
+	font-weight: bold;
+}
+
+.logout{
+	margin:24px 0 0 40px;
+	font-size: 12px;
+}
+
+.logout a:hover{
+	text-decoration: underline;
+}
+
+
+.cart a:link{
+	border: 1px solid #fff;
+	border-radius: 2px;
+	padding: 10px 0px;
+	width: 90px;
+	background-image: url(../images/cart.png);
+	background-size: 20px;
+	background-position: 10px 12px;
+	background-repeat: no-repeat;
+	text-indent: 40px;
+	display: block;
+}
+
+.cart a:hover{
+	font-weight: bold;
+	border: 2px solid #fff;
+	padding: 9px 0px;
+	width: 89px;
+}
+
+
+
+
+/*   ===== CONTAINERS =====   */
+
+#container{
+	width: 100%;
+}
+
+#containerinside{
+	width: 935px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #fff;
+	border-left: 1px solid #b3b3b3;
+	border-right: 1px solid #b3b3b3;
+	padding: 25px;
+	height: 100%;
+}
+
+#productsblock{
+	width: 80%;
+	float:left;
+}
+
+#filterblock{
+	width: 20%;
+	float:right;
+}
+
+.product{
+	width: 220px;
+	height: 290px;
+	border: 1px solid #000;
+	margin-right:20px; 
+	margin-bottom:25px; 
+	float:left;
+}
+
+.product a:link,
+.product a:visited,
+.product a:hover,
+.product a:active{
+	color: #000;
+	text-decoration: none;
+}
+
+.picture{
+	width: 220px;
+	height: 220px;
+	border-bottom: 1px solid #000;
+}
+
+.product p.title, .product p{
+	text-align: center;
+	line-height: 14px;
+}
+
+p.title{
+	font-weight: bold;
 }

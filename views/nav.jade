@@ -1,10 +1,20 @@
 extends layout
 
 block nav 
-	#logo
-		a(href="/") Home
-	#nav
-		li.navitem
-			a(href="/account") Account
-		li.navitem
-			a(href="/cart") Cart
+	#navcontainer
+		nav
+			#logo
+				
+				a(href="/") 
+					img(src="/images/district01.png") 
+					| Webshop
+
+			#nav
+				ul
+					li.navitem.account
+						a(href="/account") Account
+					li.navitem.cart
+						a(href="/cart") Cart
+					if user
+						li.navitem.logout
+							a(href="/signout") Sign out
