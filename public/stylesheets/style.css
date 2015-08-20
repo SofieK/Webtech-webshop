@@ -8,17 +8,25 @@ body {
 	clear: both;
 }
 
-/*	===== NAV =====   */
+/*	===== NAV/FOOTER =====   */
 
-#navcontainer{
+#navcontainer, #footercontainer{
+	clear: both;
 	background-color: #000;
 	height: 85px;
 	padding: 5px
 }
-nav{
+nav, footer{
 	width: 960px;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+#footercontainer{
+
+	position: fixed;
+	bottom: 0px;
+	width: 100%
 }
 
 nav a:link,
@@ -87,6 +95,16 @@ nav a:active{
 }
 
 
+.block{
+	width: 20%;
+	float: left;
+	color: #fff;
+}
+
+
+
+
+
 
 
 /*   ===== CONTAINERS =====   */
@@ -95,6 +113,9 @@ nav a:active{
 
 #container{
 	width: 100%;
+	height: calc(100% - 180px);
+	position: absolute;
+
 }
 
 #containerinside{
@@ -105,6 +126,10 @@ nav a:active{
 	border-left: 1px solid #b3b3b3;
 	border-right: 1px solid #b3b3b3;
 	padding: 25px;
+	min-height: calc(100% - 50px);
+	padding-bottom: 100px;
+	position:relative;
+
 }
 
 
@@ -195,7 +220,7 @@ p.title{
 	text-decoration: underline;
 }
 
-#right{
+.rightorder{
 	margin-bottom: 100px;
 }
 

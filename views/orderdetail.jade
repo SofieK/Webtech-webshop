@@ -1,17 +1,21 @@
 extends layout
 extends nav
+extends footer
 
 block content
 	div#container
 		div#containerinside
 			h1.pagehead Order nr. #{orderdetail._id}
 			div.table.info
-				h2 Costumer info
-				p.bigger #{userdata.firstname} #{userdata.lastname}
-				p Adres: 
-					span #{userdata.street} #{userdata.housenr}
-					span #{userdata.city}
-					span #{userdata.country}
+				#left
+					h2 Costumer info
+					p.bigger #{userdata.firstname} #{userdata.lastname}
+				#right
+					p.bigger Adres:
+					p #{userdata.street} #{userdata.housenr}
+					p #{userdata.city}
+					p #{userdata.country}
+				#clearfix
 
 			table.table
 				tr

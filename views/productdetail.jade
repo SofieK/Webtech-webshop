@@ -1,5 +1,6 @@
 extends layout
 extends nav
+extends footer
 
 block content
 	div#container
@@ -8,14 +9,14 @@ block content
 			div#clearfix
 			div#left
 				img(src="/uploads/#{product.Picture}")
-			div#right
+			div#right.rightorder
 				h1 #{product.Name}
 				p €
 					span #{product.Price}
 				p #{product.Description}
 
 			
-			#order
+			div#order
 				if user
 					form(action="/cart", method="post")
 						

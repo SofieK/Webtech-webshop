@@ -249,9 +249,19 @@ router.get('/order/:key', isAuthenticated, function(req, res){
 
 router.post('/account', function(req, res){
 
-	User.findByIdAndUpdate(req.user._id, {"firstname": req.body.firstname, "lastname": req.body.lastname, "street": req.body.street, "housenr": req.body.housenr, "city": req.body.city, "country": req.body.country}, function(err, b){
-		//console.log('update'+b);
-	});
+	if(req.user.admin == 0){
+		
+		User.findByIdAndUpdate(req.user._id, {"firstname": req.body.firstname, "lastname": req.body.lastname, "street": req.body.street, "housenr": req.body.housenr, "city": req.body.city, "country": req.body.country}, function(err, b){
+			//console.log('update'+b);
+		});
+
+	}else{
+
+		User.findByIdAndUpdate(req.user._id, {"firstname": req.body.firstname}, function(err, b){
+			//console.log('update'+b);
+		});
+
+	}
 	res.redirect('account')
 
 });
