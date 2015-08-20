@@ -14,39 +14,57 @@ block content
 					a(class="cart" href="/") Go shopping!
 
 				else
-					table.table
-						tr
-							th Product
-							th Productprice 
-							th Amount
-							th Price
-						- var p = cart
-						- var a = amount
-						- var s = size
-						- var total = 0
-						- for (var i = 0; i< p.length; i++)
-							- var tot = p[i].Price * a[i]
-							- total = total +tot
-							tr(class="cartproduct")
-								td
-									img(class="avatar" src="/uploads/"+p[i].Picture)
-									p.bigger= p[i].Name
-									p="Size: "+ s[i]
-								td="€ "+ p[i].Price
-								td= a[i]
-								td.bigger="€ "+  tot
-					div#continue
-						h3.total=" TOTAL = € "+ total
+					div#step1
+						table.table
+							tr
+								th Product
+								th Productprice 
+								th Amount
+								th Price
+							- var p = cart
+							- var a = amount
+							- var s = size
+							- var total = 0
+							- for (var i = 0; i< p.length; i++)
+								- var tot = p[i].Price * a[i]
+								- total = total +tot
+								tr(class="cartproduct")
+									td
+										img(class="avatar" src="/uploads/"+p[i].Picture)
+										p.bigger= p[i].Name
+										p="Size: "+ s[i]
+									td="€ "+ p[i].Price
+									td= a[i]
+									td.bigger="€ "+  tot
 
-						form(action="/order", method="post")
+						div#continue
+							h3.total=" TOTAL = € "+ total
+	
+							button(type="submit" id="continue") Continue Order
+
+					div#step2
+
+						form(class="form" action="/order", method="post")
+							label(name="street") Street
+							input(type='text', name='street', placeholder='Street', value=user.street, required)
+
+							label(name="housenr") House number
+							input(type='number', name='housenr', placeholder='House number', value=user.housenr, required)
+							
+							label(name="city") City
+							input(type='text', name='city', placeholder='city', value=user.city, required)
+
+							label(name="country") Country
+							input(type='text', name='country', placeholder='country', value=user.country, required)
+
 							input(type="hidden" name="total" id="total" value=total)
-							button(type="submit" id="OrderCart") Place order!
+							button(type="submit" id="OrderCart") Place Order
 
 					div#clearfix
 
 					script.
 						$(document).ready(function(){
-
+							$('#step2').hide();
 							var socket = io.connect('http://localhost:3000');
 
 								$('#OrderCart').on('click', function(){
@@ -56,8 +74,13 @@ block content
 									var totalPrice = $('#total').val();
 									var new_order = {'user': userId, 'order': cart, 'total': totalPrice};
 
-								
 									socket.emit('NewOrder', new_order);
+								});
+
+								$('#continue').on('click', function(){
+									$('#step1').hide();
+									$('#step2').show();
+
 								});
 
 

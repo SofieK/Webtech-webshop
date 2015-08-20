@@ -5,10 +5,48 @@ block content
 	div#container
 		div#containerinside
 			h1.pagehead Account
-			if user.admin == 1
-				a(href="/addproduct") Add products
-				a(href="/order") Orders
+			if user.admin == 0
 
-				extends orders
+				div#left
+					form(class="form form-right" action="/account", method="post")
+						label(name="firstname") First Name
+						input(type='text', name='firstname', placeholder='First Name', value=user.firstname, required)
+
+						label(name="lastname") Last Name
+						input(type='text', name='lastname', placeholder='Last Name', value=user.lastname, required)
+
+						label(name="street") Street
+						input(type='text', name='street', placeholder='Street', value=user.street, required)
+
+						label(name="housenr") House number
+						input(type='number', name='housenr', placeholder='House number', value=user.housenr, required)
+						
+						label(name="city") City
+						input(type='text', name='city', placeholder='city', value=user.city, required)
+
+						label(name="country") Country
+						input(type='text', name='country', placeholder='country', value=user.country, required)
+
+						button(type="submit" id="update") Update info
+				div#right
+					a(href="/order" class="btn") Your orders
+
+				div#clearfix
+
+			if user.admin == 1
+				div#left
+					form(class="form form-right" action="/account", method="post")
+						label(name="firstname") First Name
+						input(type='text', name='firstname', placeholder='First Name', value=user.firstname, required)
+
+						button(type="submit" id="update") Update info
+
+				div#right
+					a(href="/addproduct" class="btn") Add products
+					a(href="/order" class="btn") All Orders
+
+				div#clearfix
+				
+
 
 		

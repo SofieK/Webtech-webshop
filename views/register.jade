@@ -6,9 +6,16 @@ block content
 		div#containerinside
 			h1.pagehead Register
 			form(class='form form-signup', action='/signup', method='POST')
+					label(name="username") Email
 					input(type='email', name='username', placeholder='Email', required, autofocus)
+
+					label(name="password") Password
 					input(type='password', name='password', placeholder='Password', required)
+
+					label(name="firstname") First Name
 					input(type='text', name='firstname', placeholder='First Name', required)
+
+					label(name="lastname") Last Name
 					input(type='text', name='lastname', placeholder='Last Name', required)
 					button(type='submit' id="signup") Register
 

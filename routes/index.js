@@ -143,7 +143,7 @@ router.post('/cart', function(req, res){
 
 router.get('/cart', function(req, res){
 	if(req.user){
-		if (req.cart){
+		if (req.cart != undefined){
 			var cart_array = req.user.cart;
 			var cart_length = cart_array.length;
 			var array_id = [];
@@ -185,8 +185,9 @@ router.get('/cart', function(req, res){
 
 
 router.post('/order', isAuthenticated, function(req, res){
+
 	
-	User.findByIdAndUpdate(req.user._id, {"cart" : []}, function(err, b){
+	User.findByIdAndUpdate(req.user._id, {"cart" : [], "street": req.body.street, "housenr": req.body.housenr, "city": req.body.city, "country": req.body.country}, function(err, b){
 		//console.log('update'+b);
 	});
 	res.redirect('order')
@@ -217,6 +218,13 @@ router.get('/order/:key', isAuthenticated, function(req, res){
 
 		Order.findById( order_id, function(err, b){
 			var orderdetail = b;
+			var orderuser = b.user;
+			var userdata;
+
+			User.findById( orderuser, function(err, c){
+				userdata = c;
+				return userdata;
+			});
 			var order = b.order;
 			var items = [];
 			var order_length = order.length;
@@ -228,7 +236,7 @@ router.get('/order/:key', isAuthenticated, function(req, res){
 
 					if(ii == order_length){
 						//console.log(array_id);
-						var order_data = {orders: items, orderdetail: orderdetail, user : req.user};
+						var order_data = {orders: items, userdata: userdata, orderdetail: orderdetail, user : req.user};
 						//console.log('order_data ='+order_data.orderdetail);
 						res.render('orderdetail', order_data );
 					}
@@ -238,6 +246,15 @@ router.get('/order/:key', isAuthenticated, function(req, res){
 		})
 
 	});
+
+router.post('/account', function(req, res){
+
+	User.findByIdAndUpdate(req.user._id, {"firstname": req.body.firstname, "lastname": req.body.lastname, "street": req.body.street, "housenr": req.body.housenr, "city": req.body.city, "country": req.body.country}, function(err, b){
+		//console.log('update'+b);
+	});
+	res.redirect('account')
+
+});
 
 
 return router;

@@ -221,6 +221,7 @@ button{
 	height: 35px;
 	border: none;
 	color: #fff;
+
 }
 
 button:hover{
@@ -272,7 +273,12 @@ button:hover{
 }
 
 
-
+.form-right{
+	margin-left: 0;
+	margin-right: 0;
+	float: right;
+	width: 100%;
+}
 
 
 
@@ -398,4 +404,25 @@ table a:hover{
 }
 .cart:hover{
 	text-decoration: underline;
+}
+
+
+
+
+
+
+
+
+
+
+.btn{
+	display: block;
+	background-color: #c1272d;
+	width: 200px;
+	padding: 5px;
+	text-decoration: none;
+	text-align: center;
+	font-weight: bold;
+	color: #fff;
+	margin-bottom: 10px;
 }
