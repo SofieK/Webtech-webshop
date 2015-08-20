@@ -2,7 +2,13 @@ extends layout
 extends nav
 
 block content
-	if user.admin == 1
-		a(href="/addproduct") Add products
+	div#container
+		div#containerinside
+			h1.pagehead Account
+			if user.admin == 1
+				a(href="/addproduct") Add products
+				a(href="/order") Orders
+
+				extends orders
 
 		

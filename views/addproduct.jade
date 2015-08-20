@@ -2,34 +2,38 @@ extends layout
 extends nav
 
 block content
-    form(action="/upload", method="post", enctype="multipart/form-data")
-        label(for='title') Title
-        input(type="text", id='title', name="title", placeholder="Title", required)
+    div#container
+        div#containerinside
+            h1.pagehead Add products
+            form(class='form form-signin' action="/upload", method="post", enctype="multipart/form-data")
+                label(for='title') Title
+                input(type="text", id='title', name="title", placeholder="Title", required)
 
-        label(for='description') Description
-        textarea(rows="4", cols="50", id='description', name="description", placeholder="Description", required)
+                label(for='description') Description
+                textarea(rows="4", cols="50", id='description', name="description", placeholder="Description", required)
 
-        label(for='price') Price
-        input(type="number", id='price', name="price", placeholder="Price", required)
+                label(for='price') Price
+                input(type="number", id='price', name="price", placeholder="Price", required)
 
-        select(name='type', id="type")
-            option(value='T-shirt') T-shirt
-            option(value='Sweater') Sweater
-            option(value='Headwear') Headwear
-            option(value='Accesories') Accesories
-            
-        div#inputs
-            input(type='checkbox', name='size', value="S")
-            | Small
-            input(type='checkbox', name='size', value="M")
-            | Medium
-            input(type='checkbox', name='size', value="L")
-            | Large
-        
-        label(for='image') Image
-        input(type="file", id='image', name="image")
+                label(for='type') Product type
+                select(name='type', id="type")
+                    option(value='T-shirt') T-shirt
+                    option(value='Sweater') Sweater
+                    option(value='Headwear') Headwear
+                    option(value='Accesories') Accesories
+                    
+                div#inputs
+                    input(type='checkbox', name='size', value="S")
+                    | Small
+                    input(type='checkbox', name='size', value="M")
+                    | Medium
+                    input(type='checkbox', name='size', value="L")
+                    | Large
+                
+                label(for='image') Image
+                input(type="file", id='image', name="image")
 
-        button(type="submit", value="Upload") Add product
+                button(type="submit", value="Upload") Add product
 
 
     script.

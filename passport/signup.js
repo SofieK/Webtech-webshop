@@ -25,30 +25,20 @@ module.exports = function(passport){
                         // if there is no user with that email
                         // create the user
                         var newUser = new User();
-
+                        
                         // set the user's local credentials
                         newUser.username = username;
                         newUser.password = createHash(password);
-                        newUser.email = req.param('email');
-                        newUser.firstName = req.param('firstName');
-                        newUser.lastName = req.param('lastName');
-                        newUser.IMDyear = req.param('IMDyear');
-                        newUser.birthdayD = req.param('birthdayD');
-                        newUser.birthdayM = req.param('birthdayM');
-                        newUser.birthdayY = req.param('birthdayY');
-                        newUser.development = req.param('development');
-                        newUser.design = req.param('design');
-                        newUser.image1 = "";
-                        newUser.image2 = "";
-                        newUser.image3 = "";
-
+                        newUser.firstname = req.param('firstname');
+                        newUser.lastname = req.param('lastname');
                         // save the user
                         newUser.save(function(err) {
                             if (err){
                                 console.log('Error in Saving user: '+err);  
                                 throw err;  
                             }
-                            console.log('User Registration succesful');    
+                            console.log('User Registration succesful'); 
+
                             return done(null, newUser);
                         });
                     }

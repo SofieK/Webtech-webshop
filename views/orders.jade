@@ -2,23 +2,27 @@ extends layout
 extends nav
 
 block content
-	if user
-		if order != ""
-			table
-				tr
-					th Order nr.
-					th Total 
-					th.statusbtn Status
-					th Info
-				-each order in orders
-					tr.rows
-						td= order._id
-						td= order.total
-						td.status= order.status
-						td
-							a(href="/order/"+order._id) More info
-		else
-			p You have not made any orders yet
+	div#container
+		div#containerinside
+			h1.pagehead Orders
+			if user
+				if order != ""
+
+					table.table
+						tr
+							th Order nr.
+							th Total 
+							th.statusbtn Status
+							th Info
+						-each order in orders
+							tr.rows
+								td= order._id
+								td= order.total
+								td.status= order.status
+								td
+									a(href="/order/"+order._id) More info
+				else
+					p There are no orders
 
 	script.
 		$(document).ready(function(){

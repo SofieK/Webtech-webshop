@@ -2,32 +2,47 @@ extends layout
 extends nav
 
 block content
-	h1 ORDER nr= #{orderdetail._id}
-	table
-		- var i = 0;
-		- each order in orders
-			tr
-				td 
-					img(src="/uploads/"+order.Picture)
-				td 
-					p= orderdetail.order[i].amount
-					
-				td 
-					h2= order.Name
-				td
-					p= order.Price
-				td
-					p= orderdetail.order[i].Option
-					- i++;
+	div#container
+		div#containerinside
+			h1.pagehead Order nr. #{orderdetail._id}
+			div.table.info
+				h2 Costumer info
+				p.bigger #{user.firstname} #{user.lastname}
+				p Adres: 
+					span #{user.street} #{user.housenr}
+					span #{user.city}
+					span #{user.country}
 
-	p= orderdetail.total
-	p.status= orderdetail.status
+			table.table
+				tr
+					th Product
+					th Productprice 
+					th Amount
+					th Price
+				- var i = 0;
+				- each order in orders
+					tr
+						td 
+							img(class="avatar" src="/uploads/"+order.Picture)
+							p.bigger= order.Name
+							p= "Size: "+ orderdetail.order[i].Option							
+						td
+							p= order.Price
+						td 
+							p= orderdetail.order[i].amount
+						td
+							-var tot= order.Price * orderdetail.order[i].amount;
+							p.bigger= tot
+							- i++;
+			div#continue
+				p.total="TOTAL = € "+  orderdetail.total
+				p.status= orderdetail.status
 
-	if user.admin 
-		if orderdetail.status != "Shipped"
-			button(type="submit" id="changeStatus") Shipped!
-		
-
+				if user.admin 
+					if orderdetail.status != "Shipped"
+						button(type="submit" id="changeStatus") Shipped!
+				
+			div#clearfix
 
 	script.
 		$(document).ready(function(){

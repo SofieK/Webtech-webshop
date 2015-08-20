@@ -142,38 +142,40 @@ router.post('/cart', function(req, res){
 });
 
 router.get('/cart', function(req, res){
-	
-	if (req.user){
-		var cart_array = req.user.cart;
-		var cart_length = cart_array.length;
-		var array_id = [];
-		var array_size = [];
-		var cart = [];
-		var ii=0;
-		for(var i=0; i<cart_length; i++){
+	if(req.user){
+		if (req.cart){
+			var cart_array = req.user.cart;
+			var cart_length = cart_array.length;
+			var array_id = [];
+			var array_size = [];
+			var cart = [];
+			var ii=0;
+			for(var i=0; i<cart_length; i++){
 
-			array_id[i] = cart_array[i].amount;
-			array_size[i] = cart_array[i].Option;
+				array_id[i] = cart_array[i].amount;
+				array_size[i] = cart_array[i].Option;
 
-			Product.findById(cart_array[i].product_id, function(err, result){
-				cart.push(result);
-
-
-				ii++;
-
-				if(ii == cart_length){
-					//console.log(array_id);
-					var cartdata = { "cart": cart, "amount": array_id, "size": array_size, user : req.user};
-					//console.log('CARTDATA ='+cartdata);
-					res.render('cart', cartdata );
-				}
-
-				
-			})
-
-		};
+				Product.findById(cart_array[i].product_id, function(err, result){
+					cart.push(result);
 
 
+					ii++;
+
+					if(ii == cart_length){
+						//console.log(array_id);
+						var cartdata = { "cart": cart, "amount": array_id, "size": array_size, user : req.user};
+						//console.log('CARTDATA ='+cartdata);
+						res.render('cart', cartdata );
+					}
+
+					
+				})
+
+			};
+
+		}else{
+			res.render('cart', { user: req.user});
+		}
 	}else{
 		res.render('cart');
 	}

@@ -2,9 +2,14 @@ extends layout
 extends nav
 
 block content
-	form(class='form form-signin', action='/login', method='POST')
-		input(type='text', name='username', placeholder='Email', required, autofocus)
-		input(type='password', name='password', placeholder='Password', required)
-		button(type='submit') Sign in
+	div#container
+		div#containerinside
+			h1.pagehead Login
+			form(class='form form-signin', action='/login', method='POST')
+				label(name="username") Email
+				input(type='text', name='username', placeholder='Email', required, autofocus)
+				label(name="password") Password
+				input(type='password', name='password', placeholder='Password', required)
+				button(type='submit' id="signin") Sign in
 
-		a(href="/signup") New here? Sign up!
+				a(href="/signup") New here? Sign up!
