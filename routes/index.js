@@ -80,7 +80,6 @@ router.get('/', function(req, res) {
 		}else{
 			var b = {products: p}
 		}
-			//console.log(b);
 			res.render('index', b);
 		});
 });
@@ -96,7 +95,6 @@ router.get('/addproduct', isAuthenticated, function(req, res){
 });
 
 router.post('/upload', upload, function(req, res){
-	console.log(req.body);
 	var size = req.body.size;
 	if(!size){
 		var option = "One";
@@ -110,7 +108,7 @@ router.post('/upload', upload, function(req, res){
 });
 
 router.get('/product/:key', function(req, res){
-		//console.log(req.params.key);
+
 		product_id = req.params.key;
 
 		Product.findById( product_id, function(err, item){
@@ -132,18 +130,14 @@ router.post('/cart', function(req, res){
 	var cart_user = req.user._id;
 
 	var cart_product = {"product_id": req.body.product_id, "Option": req.body.size, "amount": req.body.amount};
-	console.log(cart_product);
 
 	User.findByIdAndUpdate(cart_user, {$push: {"cart": cart_product}}, {safe: true, upsert: true}, function(err, b){
-				//console.log('updated:' + b);
-				//var added = true;
 				res.redirect('cart')
 			})
 });
 
 router.get('/cart', function(req, res){
 	if(req.user){
-		if (req.cart != undefined){
 			var cart_array = req.user.cart;
 			var cart_length = cart_array.length;
 			var array_id = [];
@@ -162,9 +156,7 @@ router.get('/cart', function(req, res){
 					ii++;
 
 					if(ii == cart_length){
-						//console.log(array_id);
 						var cartdata = { "cart": cart, "amount": array_id, "size": array_size, user : req.user};
-						//console.log('CARTDATA ='+cartdata);
 						res.render('cart', cartdata );
 					}
 
@@ -173,9 +165,6 @@ router.get('/cart', function(req, res){
 
 			};
 
-		}else{
-			res.render('cart', { user: req.user});
-		}
 	}else{
 		res.render('cart');
 	}
@@ -188,7 +177,6 @@ router.post('/order', isAuthenticated, function(req, res){
 
 	
 	User.findByIdAndUpdate(req.user._id, {"cart" : [], "street": req.body.street, "housenr": req.body.housenr, "city": req.body.city, "country": req.body.country}, function(err, b){
-		//console.log('update'+b);
 	});
 	res.redirect('order')
 
@@ -198,12 +186,10 @@ router.get('/order', isAuthenticated, function(req, res){
 
 	if(req.user.admin == 1){
 		Order.find(function(err, b) {
-		 // console.log(b);
 		  res.render('orders', { user: req.user, orders: b });
 		})
 	} else if(req.user.admin == 0){
 		Order.find({user: req.user._id}, function(err, b) {
-		  //console.log(b);
 		  res.render('orders', { user: req.user, orders: b });
 		})
 	}
@@ -213,7 +199,6 @@ router.get('/order', isAuthenticated, function(req, res){
 
 
 router.get('/order/:key', isAuthenticated, function(req, res){
-		//console.log(req.params.key);
 		var order_id = req.params.key;
 
 		Order.findById( order_id, function(err, b){
@@ -235,9 +220,7 @@ router.get('/order/:key', isAuthenticated, function(req, res){
 					ii++;
 
 					if(ii == order_length){
-						//console.log(array_id);
 						var order_data = {orders: items, userdata: userdata, orderdetail: orderdetail, user : req.user};
-						//console.log('order_data ='+order_data.orderdetail);
 						res.render('orderdetail', order_data );
 					}
 				})
@@ -252,13 +235,11 @@ router.post('/account', function(req, res){
 	if(req.user.admin == 0){
 		
 		User.findByIdAndUpdate(req.user._id, {"firstname": req.body.firstname, "lastname": req.body.lastname, "street": req.body.street, "housenr": req.body.housenr, "city": req.body.city, "country": req.body.country}, function(err, b){
-			//console.log('update'+b);
 		});
 
 	}else{
 
 		User.findByIdAndUpdate(req.user._id, {"firstname": req.body.firstname}, function(err, b){
-			//console.log('update'+b);
 		});
 
 	}
